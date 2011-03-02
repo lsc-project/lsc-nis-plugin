@@ -64,4 +64,9 @@ public class NisConnectionConfiguration extends Connection {
 	public Class<?> getService() {
 		return NisServiceConfiguration.class;
 	}
+
+	@Override
+	public String getConnectionTypeName() {
+		return "NIS connection";
+	}
 }
