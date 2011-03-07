@@ -61,8 +61,12 @@ public class NisConnectionConfiguration extends Connection {
 	@Validate("required,regexp=^nis://[_a-zA-A0-9][_a-zA-Z0-9\\-\\.]+(:\\d+)?(/\\S*)?$")
 	protected String url;
 
-	public Class<?> getService() {
-		return NisServiceConfiguration.class;
+	public Class<?> getService(boolean isSource) {
+		if(isSource) {
+			return NisServiceConfiguration.class;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
