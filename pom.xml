@@ -150,7 +150,7 @@
             <type>jar</type>
             <optional>false</optional>
             <scope>system</scope>
-            <systemPath>${JAVA_HOME}/jre/lib/endorsed/nis-1.2.1.jar</systemPath>
+            <systemPath>${env.JAVA_HOME}/jre/lib/ext/nis-1.2.1.jar</systemPath>
         </dependency>
     </dependencies>
     
