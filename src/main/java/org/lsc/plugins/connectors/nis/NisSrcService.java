@@ -46,7 +46,6 @@
 package org.lsc.plugins.connectors.nis;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 import java.util.Properties;
 
@@ -61,10 +60,9 @@ import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 
-import org.lsc.Configuration;
 import org.lsc.LscAttributes;
 import org.lsc.beans.IBean;
-import org.lsc.exception.LscConfigurationException;
+import org.lsc.configuration.objects.Task;
 import org.lsc.exception.LscServiceCommunicationException;
 import org.lsc.exception.LscServiceConfigurationException;
 import org.lsc.exception.LscServiceException;
@@ -112,67 +110,37 @@ public class NisSrcService implements IService {
 	 */
 	private Class<IBean> beanClass;
 
-	/** the nis server name (hostname or ip address) */
-	private String url;
-	
 	private String map;
 	
 	private InitialContext context;
 	
-	private Hashtable<String, String> conftable;
-	
 	private Map<String, Attributes> _cache;
- 
-	/**
-	 * @deprecated Must now use the new constructor
-	 * @param serviceProps
-	 * @param beanClassName
-	 * @throws LscServiceConfigurationException
-	 */
-	public NisSrcService(final Properties serviceProps, final String beanClassName) throws LscServiceConfigurationException {
 
+	/**
+	 * Create the service
+	 * @param task the task in which the source service settings will be used
+	 * @throws LscServiceConfigurationException never thrown
+	 */
+	@SuppressWarnings("unchecked")
+	public NisSrcService(final Task task) throws LscServiceConfigurationException {
+		_cache = new HashMap<String, Attributes>(); 
 		try {
-			this.beanClass = (Class<IBean>) Class.forName(beanClassName);
+			map = ((NisServiceConfiguration)task.getSourceService()).getMap();
+			context = new InitialDirContext(getProperties(task.getSourceService().getConnection().getUrl()));
+			beanClass = (Class<IBean>) Class.forName(task.getBean());
+		} catch (NamingException e) {
+			throw new LscServiceConfigurationException(e);
 		} catch (ClassNotFoundException e) {
 			throw new LscServiceConfigurationException(e);
 		}
-		_cache = new HashMap<String, Attributes>();
-		
-		map = serviceProps.getProperty("map");
-
-		String domain = serviceProps.getProperty("domain");
-		String servername = serviceProps.getProperty("servername");
-		
-		// check that we have all parameters, or abort
-		try {
-			Configuration.assertPropertyNotEmpty("map", map, this.getClass().getName());
-			Configuration.assertPropertyNotEmpty("domain", domain, this.getClass().getName());
-		} catch (LscConfigurationException e) {
-			throw new LscServiceConfigurationException(e);
-		}
-
-		url = null;
-		if(servername != null) {
-			url = "nis://" + servername + "/" + domain;
-		} else {
-			url = "nis:///" + domain;
-		}
-
-		
-		conftable = new Hashtable<String, String>();
-		conftable.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.nis.NISCtxFactory");
-		conftable.put(Context.PROVIDER_URL, url);
-		conftable.put(Context.SECURITY_AUTHENTICATION, "simple");
 	}
-
-	public NisSrcService(final NisServiceConfiguration nisConf, final String beanClassName) throws LscServiceConfigurationException {
-		String url = nisConf.getConnection().getUrl();
-		
-		
-		conftable = new Hashtable<String, String>();
+	
+	public static Properties getProperties(String url) {
+		Properties conftable = new Properties();
 		conftable.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.nis.NISCtxFactory");
 		conftable.put(Context.PROVIDER_URL, url);
 		conftable.put(Context.SECURITY_AUTHENTICATION, "simple");
+		return conftable;
 	}
 
 	@Override
@@ -228,7 +196,6 @@ public class NisSrcService implements IService {
 	private synchronized void updateCache() throws LscServiceException {
 		try {
 			if(LOGGER.isDebugEnabled()) LOGGER.debug("Connecting to the NIS domain ...");
-			context = new InitialDirContext(conftable);
 			
 			if(LOGGER.isDebugEnabled()) LOGGER.debug("Retrieving the information ...");
 			DirContext maps = (DirContext) context.lookup("system/" + map);

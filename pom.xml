@@ -55,8 +55,16 @@
         <defaultGoal>package</defaultGoal>
         
         <finalName>${project.artifactId}-${project.version}</finalName>
-        
+
         <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.7.1</version>
+				<configuration>
+					<argLine>-javaagent:"${settings.localRepository}"/mockit/jmockit/0.999.10/jmockit-0.999.10.jar</argLine>
+				</configuration>
+			</plugin>  
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
@@ -108,6 +116,11 @@
             <id>lsc-site</id>
             <url>http://lsc-project.org/maven</url>
         </repository>
+		<repository>
+		   <id>jmockit-svn</id>
+		   <url>http://jmockit.googlecode.com/svn/maven-repo</url>
+		   <releases><checksumPolicy>ignore</checksumPolicy></releases>
+		</repository>
     </repositories>
     
     <pluginRepositories>
@@ -136,6 +149,12 @@
     </pluginRepositories>
     
     <dependencies>
+		<dependency>
+		   <groupId>mockit</groupId>
+		   <artifactId>jmockit</artifactId>
+		   <version>0.999.10</version>
+		   <scope>test</scope>
+		</dependency>
         <dependency>
             <groupId>org.lsc</groupId>
             <artifactId>lsc-core</artifactId>
