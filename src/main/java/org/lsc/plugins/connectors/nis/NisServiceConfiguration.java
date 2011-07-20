@@ -45,8 +45,14 @@
  */
 package org.lsc.plugins.connectors.nis;
 
+import javax.naming.CommunicationException;
+import javax.naming.NamingException;
+import javax.naming.directory.InitialDirContext;
+
 import org.apache.tapestry5.beaneditor.Validate;
 import org.lsc.configuration.objects.Service;
+import org.lsc.exception.LscServiceCommunicationException;
+import org.lsc.exception.LscServiceConfigurationException;
 
 /**
  *
@@ -79,4 +85,25 @@ public class NisServiceConfiguration extends Service {
 		return NisSrcService.class;
 	}
 
+
+	@Override
+	public void validate() throws LscServiceConfigurationException,
+			LscServiceCommunicationException {
+		try {
+			// Need to check LDAP settings
+			new InitialDirContext(NisSrcService.getProperties(getConnection().getUrl()));
+		} catch (RuntimeException re) {
+			if(re.getCause() instanceof LscServiceConfigurationException) {
+				throw (LscServiceConfigurationException)re.getCause();
+			} else if(re.getCause() instanceof LscServiceCommunicationException) {
+				throw (LscServiceCommunicationException)re.getCause();
+			} else {
+				throw re;
+			}
+		} catch (CommunicationException e) {
+			throw new LscServiceCommunicationException(e);
+		} catch (NamingException e) {
+			throw new LscServiceConfigurationException(e);
+		}
+	}
 }
