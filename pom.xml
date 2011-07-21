@@ -158,7 +158,7 @@
         <dependency>
             <groupId>org.lsc</groupId>
             <artifactId>lsc-core</artifactId>
-            <version>branch-webai-SNAPSHOT</version>
+            <version>trunk-SNAPSHOT</version>
             <type>jar</type>
             <optional>false</optional>
         </dependency>
