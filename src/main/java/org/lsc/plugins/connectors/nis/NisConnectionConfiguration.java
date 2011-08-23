@@ -48,10 +48,13 @@ package org.lsc.plugins.connectors.nis;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.lsc.configuration.objects.Connection;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 /**
  *
- * @author rschermesser
+ * @author Sebastien Bahloul &lt;seb@lsc-project.org&gt;
  */
+@XStreamAlias("nisConnection")
 public class NisConnectionConfiguration extends Connection {
 
 	/**
