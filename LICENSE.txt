@@ -76,40 +76,6 @@ License under the following conditions :
  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR NON-INFRINGEMENT, 
  ARE DISCLAIMED, EXCEPT TO THE EXTENT THAT SUCH DISCLAIMERS ARE HELD TO BE 
  LEGALLY INVALID. 
-   
- 
- ------------------------------------------------------------------------- 
- Copyright 1999 Sun Microsystems, Inc., 901 San Antonio Road, Palo 
- Alto, Californie, 94303, Etats-Unis. Tous droits réservés. 
- 
- Ce produit ou document est protégé par un copyright et distribué avec 
- des licences qui en restreignent l'utilisation, la copie, la distribution, 
- et la décompilation.  Aucune partie de ce produit ou document ne peut être 
- reproduite sous aucune forme, par quelque moyen 
- que ce soit, sans l'autorisation préalable et écrite de Sun et de ses 
- bailleurs de licence, s'il y en a.  Le logiciel détenu par des tiers, 
- et qui comprend la technologie relative aux polices de caractères, est 
- protégé par un copyright et licencié par des fournisseurs de Sun. 
-   
- 
- Sun, Sun Microsystems, le logo Sun, Solaris, Java et Java Naming and
- Directory Interface sont des marques de fabrique ou des marques déposées 
- de Sun Microsystems, Inc. aux Etats-Unis et dans d'autres pays. UNIX est 
- une marque enregistrée aux Etats-Unis et dans d'autres pays, et 
- exclusivement licenciée par X/Open Ltd. 
- 
- Toutes les marques SPARC sont utilisées sous licence et sont des marques 
- de fabrique ou des marques déposées de SPARC International, Inc. aux 
- Etats-Unis et dans d'autres pays.  Les produits portant les marques 
- SPARC sont basés sur une architecture développée par Sun Microsystems, 
- Inc. 
- 
- LA DOCUMENTATION EST FOURNIE "EN L'ETAT" ET TOUTES AUTRES CONDITIONS, 
- DÉCLARATIONS ET GARANTIES EXPRESSES OU TACITES SONT FORMELLEMENT EXCLUES 
- DANS LA MESURE AUTORISÉE PAR LA LOI APPLICABLE, Y COMPRIS NOTAMMENT TOUTE 
- GARANTIE IMPLICITE RELATIVE À LA QUALITÉ MARCHANDE, À L'APTITUDE À UNE 
- UTILISATION PARTICULIÈRE OU À L'ABSENCE DE CONTREFAÇON. 
-
 
 -------------------------------------------------------------------------------
-
+ 

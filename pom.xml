@@ -43,12 +43,16 @@
             <name>BSD</name>
             <url>http://www.opensource.org/licenses/bsd-license.php</url>
         </license>
+        <license>
+            <name>Sun Binary License</name>
+            <url>See LICENSE.txt</url>
+        </license>
     </licenses>
     
     <scm>
-        <connection>scm:svn:https://lsc-project.org/svn/lsc/trunk</connection>
-        <developerConnection>scm:svn:svn+ssh://login@lsc-project.org/var/lib/svn/lsc-core/trunk</developerConnection>
-        <url>http://tools.lsc-project.org/repositories/browse/lsc/lsc</url>
+        <connection>scm:svn:https://lsc-project.org/svn/plugins/trunk/connectors/nis</connection>
+        <developerConnection>scm:svn:svn+ssh://login@lsc-project.org/var/lib/svn/plugins/trunk/connectors/nis</developerConnection>
+        <url>http://tools.lsc-project.org/repositories/browse/lsc/plugins/trunk/connectors/nis</url>
     </scm>
     
     <build>

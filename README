@@ -1,0 +1,8 @@
+NIS / YP plugin
+---------------
+
+This plugin enables the usage of any NIS compliant directory as source database. It can retrieve
+any standard map that is available (user, group, ...) but also custom maps (automounts, ...)
+
+This feature has been contributed as a plugin because of the SUN binary license under which the NIS library
+is released - see the corresponding part of the LICENSE.txt file.
