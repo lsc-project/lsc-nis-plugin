@@ -54,10 +54,13 @@ import org.lsc.configuration.objects.Service;
 import org.lsc.exception.LscServiceCommunicationException;
 import org.lsc.exception.LscServiceConfigurationException;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 /**
  *
  * @author Sebastien Bahloul &lt;seb@lsc-project.org&gt;
  */
+@XStreamAlias("nisSourceService")
 public class NisServiceConfiguration extends Service {
 
 	/**
