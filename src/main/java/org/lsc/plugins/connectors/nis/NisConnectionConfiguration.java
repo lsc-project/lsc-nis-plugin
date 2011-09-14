@@ -62,7 +62,7 @@ public class NisConnectionConfiguration extends Connection {
 	 * nis://ldap.openldap.org:389/
 	 */
 	@Validate("required,regexp=^nis://[_a-zA-A0-9][_a-zA-Z0-9\\-\\.]+(:\\d+)?(/\\S*)?$")
-	protected String url;
+	private String url;
 
 	public Class<?> getService(boolean isSource) {
 		if(isSource) {
@@ -75,5 +75,10 @@ public class NisConnectionConfiguration extends Connection {
 	@Override
 	public String getConnectionTypeName() {
 		return "NIS connection";
+	}
+	
+	@Override
+	public String getUrl() {
+		return url;
 	}
 }
