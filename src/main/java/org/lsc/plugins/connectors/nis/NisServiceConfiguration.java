@@ -65,10 +65,10 @@ public class NisServiceConfiguration extends Service {
 
 	/**
 	 * <service type="SimpleJndiSrcService">
-			<name>myNisAccount</name>
-			<connection>myNisServer</connection>
-			<map>passwd.byname</baseDn>
-		</service>
+	 *		<name>myNisAccount</name>
+	 *		<connection>myNisServer</connection>
+	 *		<map>passwd.byname</baseDn>
+	 *	</service>
 	 */
 	
 	
