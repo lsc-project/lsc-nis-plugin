@@ -60,7 +60,7 @@ import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 
-import org.lsc.LscAttributes;
+import org.lsc.LscDatasets;
 import org.lsc.beans.IBean;
 import org.lsc.configuration.objects.Task;
 import org.lsc.exception.LscServiceCommunicationException;
@@ -144,7 +144,7 @@ public class NisSrcService implements IService {
 	}
 
 	@Override
-	public IBean getBean(String pivotName, LscAttributes pivotAttributes, boolean fromSameService)
+	public IBean getBean(String pivotName, LscDatasets pivotAttributes, boolean fromSameService)
 			throws LscServiceException {
 		IBean srcBean;
 		if(_cache.isEmpty()) {
@@ -171,9 +171,9 @@ public class NisSrcService implements IService {
 	}
 
 	@Override
-	public Map<String, LscAttributes> getListPivots()
+	public Map<String, LscDatasets> getListPivots()
 			throws LscServiceException {
-		Map<String, LscAttributes> ret = new HashMap<String, LscAttributes>();
+		Map<String, LscDatasets> ret = new HashMap<String, LscDatasets>();
 		if(_cache.isEmpty()) {
 			updateCache();
 		}
@@ -185,7 +185,7 @@ public class NisSrcService implements IService {
 					Attribute attr = attrs.next();
 					attrsMap.put(attr.getID(), attr.get());
 				}
-				ret.put(name, new LscAttributes());
+				ret.put(name, new LscDatasets());
 			}
 		} catch (NamingException ne) {
 			throw new LscServiceException(ne.getMessage(), ne);
