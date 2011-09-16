@@ -58,7 +58,7 @@
     <build>
         <defaultGoal>package</defaultGoal>
         
-        <finalName>${project.artifactId}-${project.version}</finalName>
+        <finalName>lsc-nis-plugin-${project.version}</finalName>
 
         <plugins>
 			<plugin>
