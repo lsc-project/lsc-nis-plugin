@@ -62,7 +62,9 @@ import javax.naming.directory.SearchResult;
 
 import org.lsc.LscDatasets;
 import org.lsc.beans.IBean;
-import org.lsc.configuration.objects.Task;
+import org.lsc.configuration.NisConnectionType;
+import org.lsc.configuration.NisSourceServiceType;
+import org.lsc.configuration.TaskType;
 import org.lsc.exception.LscServiceCommunicationException;
 import org.lsc.exception.LscServiceConfigurationException;
 import org.lsc.exception.LscServiceException;
@@ -122,11 +124,11 @@ public class NisSrcService implements IService {
 	 * @throws LscServiceConfigurationException never thrown
 	 */
 	@SuppressWarnings("unchecked")
-	public NisSrcService(final Task task) throws LscServiceConfigurationException {
+	public NisSrcService(final TaskType task) throws LscServiceConfigurationException {
 		_cache = new HashMap<String, Attributes>(); 
 		try {
-			map = ((NisServiceConfiguration)task.getSourceService()).getMap();
-			context = new InitialDirContext(getProperties(task.getSourceService().getConnection().getUrl()));
+			map = ((NisSourceServiceType)task.getNisSourceService()).getMap();
+			context = new InitialDirContext(getProperties(((NisConnectionType)task.getNisSourceService().getConnection().getReference()).getUrl()));
 			beanClass = (Class<IBean>) Class.forName(task.getBean());
 		} catch (NamingException e) {
 			throw new LscServiceConfigurationException(e);
