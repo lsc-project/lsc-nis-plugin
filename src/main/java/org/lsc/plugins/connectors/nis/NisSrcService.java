@@ -127,8 +127,8 @@ public class NisSrcService implements IService {
 	public NisSrcService(final TaskType task) throws LscServiceConfigurationException {
 		_cache = new HashMap<String, Attributes>(); 
 		try {
-			map = ((NisSourceServiceType)task.getNisSourceService()).getMap();
-			context = new InitialDirContext(getProperties(((NisConnectionType)task.getNisSourceService().getConnection().getReference()).getUrl()));
+			map = task.getNisSourceService().getMap();
+			context = new InitialDirContext(getProperties(task.getNisSourceService().getConnection().getReference().getUrl()));
 			beanClass = (Class<IBean>) Class.forName(task.getBean());
 		} catch (NamingException e) {
 			throw new LscServiceConfigurationException(e);
