@@ -8,8 +8,9 @@ import mockit.NonStrictExpectations;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.lsc.configuration.NisConnectionType;
+import org.lsc.configuration.ConnectionType;
 import org.lsc.configuration.NisSourceServiceType;
+import org.lsc.configuration.ServiceType.Connection;
 import org.lsc.configuration.TaskType;
 import org.lsc.exception.LscServiceCommunicationException;
 import org.lsc.exception.LscServiceConfigurationException;
@@ -25,11 +26,13 @@ public class NisSrcServiceTest {
 	public void setUp() throws LscServiceConfigurationException {
 		new NonStrictExpectations() {
 			@Injectable @NonStrict NisSourceServiceType nisSrcService;
-			@Injectable @NonStrict NisConnectionType nisSrcConnection;
+			@Injectable @NonStrict ConnectionType nisSrcConnection;
+			@Injectable @NonStrict Connection connection;
 			{
 				nisSrcService.getMap(); result = "passwd.byname";
-				nisSrcService.getConnection(); result = nisSrcConnection;
-				nisSrcConnection.getUrl(); result = "nis://127.0.0.1/test.org";
+                nisSrcConnection.getUrl(); result = "nis://127.0.0.1/test.org";
+				connection.getReference(); result = nisSrcConnection;
+				nisSrcService.getConnection(); result = connection;
 				task.getBean(); result = "org.lsc.beans.SimpleBean";
 				task.getNisSourceService(); result = nisSrcService;
 			}
