@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.lsc.plugins.connectors</groupId>
     <artifactId>nis</artifactId>
     <name>Ldap Synchronization Connector NIS connector</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0rc1</version>
     <description>
 	This project provides a NIS source plugin for LSC
     </description>
@@ -50,9 +49,9 @@
     </licenses>
     
     <scm>
-        <connection>scm:svn:https://lsc-project.org/svn/plugins/trunk/connectors/nis</connection>
-        <developerConnection>scm:svn:svn+ssh://login@lsc-project.org/var/lib/svn/plugins/trunk/connectors/nis</developerConnection>
-        <url>http://tools.lsc-project.org/repositories/browse/lsc/plugins/trunk/connectors/nis</url>
+        <connection>scm:svn:https://lsc-project.org/svn/plugins/tags/nis-1.0rc1</connection>
+        <developerConnection>scm:svn:svn+ssh://login@lsc-project.org/var/lib/svn/plugins/tags/nis-1.0rc1</developerConnection>
+        <url>http://tools.lsc-project.org/repositories/browse/lsc/plugins/tags/nis-1.0rc1</url>
     </scm>
     
     <build>
