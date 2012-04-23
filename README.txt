@@ -8,12 +8,14 @@ This feature has been contributed as a plugin because of the SUN binary license 
 is released - see the corresponding part of the LICENSE.txt file.
 
 To use this connector, required connection setting is the URL :
-<connection class="nisConnection" id="12">
+<nisConnection>
+	<id>nis-src-conn</id>
 	<url>nis://127.0.0.1/test.org</url>
-</connection>
+</nisConnection>
 
 Complete this with the map name inside the service declaration :
-<sourceService class="nisSourceService">
-	<connection reference="12"/>
+<nisSourceService>
+    <name>nis-source-service</name>
+	<connection reference="nis-src-conn"/>
 	<map>passwd.byname</map>
-</sourceService>
+</nisSourceService>
