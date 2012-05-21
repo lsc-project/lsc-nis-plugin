@@ -62,14 +62,14 @@ import javax.naming.directory.SearchResult;
 
 import org.lsc.LscDatasets;
 import org.lsc.beans.IBean;
-import org.lsc.configuration.NisConnectionType;
-import org.lsc.configuration.NisSourceServiceType;
 import org.lsc.configuration.TaskType;
 import org.lsc.exception.LscServiceCommunicationException;
 import org.lsc.exception.LscServiceConfigurationException;
 import org.lsc.exception.LscServiceException;
 import org.lsc.exception.LscServiceInitializationException;
+import org.lsc.plugins.connectors.nis.generated.NisSourceServiceSettings;
 import org.lsc.service.IService;
+import org.lsc.utils.SetUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -127,8 +127,12 @@ public class NisSrcService implements IService {
 	public NisSrcService(final TaskType task) throws LscServiceConfigurationException {
 		_cache = new HashMap<String, Attributes>(); 
 		try {
-			map = task.getNisSourceService().getMap();
-			context = new InitialDirContext(getProperties(task.getNisSourceService().getConnection().getReference().getUrl()));
+	        if (task.getPluginSourceService().getAny() == null || task.getPluginSourceService().getAny().size() != 1 || !(task.getPluginSourceService().getAny().get(0) instanceof NisSourceServiceSettings)) {
+	            throw new LscServiceConfigurationException("Unable to identify the nis service configuration " + "inside the plugin source node of the task: " + task.getName());
+	        }
+	        NisSourceServiceSettings serviceSettings = (NisSourceServiceSettings) task.getPluginSourceService().getAny().get(0);
+			map = serviceSettings.getMap();
+			context = new InitialDirContext(getProperties(serviceSettings.getConnection().getReference().getUrl()));
 			beanClass = (Class<IBean>) Class.forName(task.getBean());
 		} catch (NamingException e) {
 			throw new LscServiceConfigurationException(e);
@@ -156,7 +160,11 @@ public class NisSrcService implements IService {
 			srcBean = this.beanClass.newInstance();
 			NamingEnumeration<String> idsEnum = _cache.get(pivotName).getIDs();
 			while(idsEnum.hasMore()) {
-				srcBean.setAttribute(_cache.get(pivotName).get(idsEnum.next()));
+			    String attrName = idsEnum.next();
+			    Attribute attribute = _cache.get(pivotName).get(attrName);
+			    if(attrName != null && attribute != null) {
+	                srcBean.setDataset(attrName, SetUtils.attributeToSet(attribute));
+			    }
 			}
 			return srcBean;
 		} catch (InstantiationException e) {

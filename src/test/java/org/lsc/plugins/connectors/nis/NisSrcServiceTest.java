@@ -1,5 +1,8 @@
 package org.lsc.plugins.connectors.nis;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mockit.Injectable;
 import mockit.Mocked;
 import mockit.NonStrict;
@@ -9,11 +12,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.lsc.beans.IBean;
 import org.lsc.configuration.ConnectionType;
-import org.lsc.configuration.NisSourceServiceType;
+import org.lsc.configuration.PluginSourceServiceType;
 import org.lsc.configuration.ServiceType.Connection;
 import org.lsc.configuration.TaskType;
 import org.lsc.exception.LscServiceCommunicationException;
 import org.lsc.exception.LscServiceException;
+import org.lsc.plugins.connectors.nis.generated.NisSourceServiceSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +33,8 @@ public class NisSrcServiceTest {
 	public void testConnection() throws LscServiceException {
 
 	       new NonStrictExpectations() {
-	            @Injectable @NonStrict NisSourceServiceType nisSrcService;
+	            @Injectable @NonStrict NisSourceServiceSettings nisSrcService;
+	            @Injectable @NonStrict PluginSourceServiceType pluginSourceService;
 	            @Injectable @NonStrict ConnectionType nisSrcConnection;
 	            @Injectable @NonStrict Connection connection;
 	            {
@@ -38,7 +43,10 @@ public class NisSrcServiceTest {
 	                connection.getReference(); result = nisSrcConnection;
 	                nisSrcService.getConnection(); result = connection;
 	                task.getBean(); result = "org.lsc.beans.SimpleBean";
-	                task.getNisSourceService(); result = nisSrcService;
+	                task.getPluginSourceService(); result = pluginSourceService;
+	                List<Object> any = new ArrayList<Object>();
+	                any.add(nisSrcService);
+	                pluginSourceService.getAny(); result = any;
 	            }
 	        };
 
