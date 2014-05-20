@@ -4,7 +4,7 @@
 	<groupId>org.lsc.plugins.connectors</groupId>
 	<artifactId>nis</artifactId>
 	<name>Ldap Synchronization Connector NIS connector</name>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<description>
 	This project provides a NIS source plugin for LSC
     </description>
@@ -171,7 +171,7 @@
 		<dependency>
 			<groupId>org.lsc</groupId>
 			<artifactId>lsc-core</artifactId>
-			<version>2.1-SNAPSHOT</version>
+			<version>2.1.0</version>
 			<type>jar</type>
 			<optional>false</optional>
 		</dependency>
