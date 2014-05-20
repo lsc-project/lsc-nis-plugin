@@ -71,5 +71,5 @@ rm -rf %{buildroot}
 # Changelog
 #=================================================
 %changelog
-* Sat 26 Apr 2014 - Clement Oudot <clem@lsc-project.org> - 1.0-0
+* Sat Apr 26 2014 - Clement Oudot <clem@lsc-project.org> - 1.0-0
 - First package for LSC NIS plugin
