@@ -2,27 +2,84 @@
 
 [![Build Status](https://travis-ci.org/lsc-project/lsc-nis-plugin.svg?branch=master)](https://travis-ci.org/lsc-project/lsc-nis-plugin)
 
-This plugin enables the usage of any NIS compliant directory as source database. It can retrieve
-any standard map that is available (user, group, ...) but also custom maps (automounts, ...)
+> **_NOTE:_** Minimal plugin version: 1.0, Minimal required LSC version: 2.1
 
-This feature has been contributed as a plugin because of the SUN binary license under which the NIS library
-is released - see the corresponding part of the LICENSE.txt file.
+Presentation
+============
 
-To use this connector, required connection setting is the URL:
-```̀`
-<nisConnection>
-	<id>nis-src-conn</id>
-	<url>nis://127.0.0.1/test.org</url>
-</nisConnection>
-```̀`
+This source service enables getting data from a RFC 2307 compliant NIS service. You will get a posixAccount complete object : 
 
-Complete this with the map name inside the service declaration::
-```̀`
-<nisSourceService>
-    <name>nis-source-service</name>
-	<connection reference="nis-src-conn"/>
-	<map>passwd.byname</map>
-</nisSourceService>
-```̀`
+* uid,
+* uidnumber,
+* gidnumber,
+* gecos,
+* loginShell,
+* homeDirectory,
+* cn,
+* and correct objectClass values of course :)
 
-Full documentation: http://lsc-project.org/wiki/documentation/plugins/nis
+> **_NOTE:_** This service is designed as a plugin because it is based upon the Sun/Oracle JNDI provider which is not released under a free license and must be downloaded by final users.
+
+Installation
+============
+
+Get the NIS plugin. Then copy the plugin (.jar file) inside LSC lib directory. (for example `/usr/lib/lsc`)
+
+Make sure you also have the JNDI NIS library. If you don't have it, copy it into your JRE libraries (`${JAVA_HOME}/jre/lib/ext`)
+
+Configuration
+=============
+
+Connection
+----------
+
+Create a NIS connection:
+
+```
+<pluginConnection implementationClass="org.lsc.plugins.connectors.nis.generated.NisConnectionType">
+  <name>nis-src-conn</name>
+  <url>nis://NIS-SERVER-ADDRESS/lsc-project.org</url>
+  <username>unused</username>
+  <password>unused</password>
+</pluginConnection>
+```
+
+> **_NOTE:_** `username` and `password` are mandatory for a LSC connection, but unused for NIS.
+
+Source service
+--------------
+
+Create the source service:
+
+```
+<pluginSourceService implementationClass="org.lsc.plugins.connectors.nis.NisSrcService">
+  <name>nis-source-service</name>
+  <connection reference="nis-src-conn" />
+  <nis:nisSourceServiceSettings>
+    <name>nis-src-service</name>
+    <connection reference="nis-src-conn" />
+    <nis:map>passwd.byname</nis:map>
+  </nis:nisSourceServiceSettings>
+</pluginSourceService>
+```
+
+Here you can change the NIS map to synchronize groups:
+
+```
+<nis:map>group.byname</nis:map>
+```
+
+Run the connector
+==================
+
+To run the connector, you need to adjust JAVA_OPTS first:
+
+```
+export JAVA_OPTS=-DLSC.PLUGINS.PACKAGEPATH=org.lsc.plugins.connectors.nis.generated
+```
+
+Then, run the connector in a standard way:
+
+```
+bin/lsc -s all -f nis-cfg-dir/
+```
